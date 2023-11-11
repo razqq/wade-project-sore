@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for Wade Project Sore",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/razqq/wade-project-sore.git"
+  },
+  "keywords": [
+    "sore"
+  ],
+  "author": "isarbu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/razqq/wade-project-sore/issues"
+  },
+  "homepage": "https://github.com/razqq/wade-project-sore#readme",
+  "dependencies": {
+    "express": "~4.18.2"
+  }
+}
