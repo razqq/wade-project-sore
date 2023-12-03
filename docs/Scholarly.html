@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sore Scholarly HTML</title>
+</head>
+<header>
+    <h1 style="color:rgb(126, 31, 126)">Sore Scholarly HTML</h1>
+</header>
+
+<body>
+
+    <section typeof="sa:AuthorsList">
+        <h3>Authors</h3>
+        <ul>
+            <li typeof="sa:ContributorRole" property="schema:author">
+                <span typeof="schema:Person" resource="">
+                    <meta property="schema:givenName" content="Iuliana">
+                    <meta property="schema:additionalName" content="Iustina">
+                    <meta property="schema:familyName" content="Sarbu">
+                    <span property="schema:name">Sarbu Iulia Iustina</span>
+                </span>
+                <ul>
+                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                        <a href="sarbu.iustina@gmail.com" property="schema:email">sarbu.iustina@gmail.com</a>
+                    </li>
+                </ul>
+            </li>
+            <li typeof="sa:ContributorRole" property="schema:author">
+                <span typeof="schema:Person" resource="">
+                    <meta property="schema:givenName" content="Iuliana">
+                    <meta property="schema:additionalName" content="Iustina">
+                    <meta property="schema:familyName" content="Sarbu">
+                    <span property="schema:name">Croitoru Razvan</span>
+                </span>
+                <ul>
+                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                        <a href="croitorurazvan1@gmail.com" property="schema:email">croitorurazvan1@gmail.com</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+
+    <section typeof="sa:Discussion Group">
+        <h5>Discussion Group</h5>
+        <ul>
+            <li property="schema:listDiscussionGroup" typeof="schema:DiscussionGroup">
+                <a href="https://github.com/razqq/wade-project-sore" property="schema:linkDiscussionGroup">GitHub
+                    Repository</a>
+            </li>
+        </ul>
+    </section>
+
+    <section typeof="sa:Abstract">
+        <h2 style="color:rgb(126, 31, 126)">1. Abstract</h2>
+        This paper presents the design and implementation of an innovative web-based recommendation system that leverages a user-specific knowledge graph, expressed in RDF (Resource Description Framework), to provide personalized recommendations. The system uniquely assimilates data from users' social media profiles, utilizing various features and properties to tailor suggestions. It is capable of recommending a diverse array of items, including people, events, places, and other interests, by analyzing and synthesizing complex data relationships within the knowledge graph.
+        
+        At its core, the system employs a modular architecture, comprising a React-based frontend, a Node.js backend, and MongoDB for data storage, supplemented by a dedicated graph database for managing RDF data. The architecture facilitates efficient data ingestion, sophisticated query handling via a SPARQL endpoint, and dynamic recommendation generation based on machine learning algorithms. The integration of user feedback serves as a mechanism for continuous learning and improvement of the recommendation accuracy.
+        
+        The system’s modular design not only enhances scalability and maintainability but also allows for independent and parallel development of its components. This paper details the system's architecture, data flow, and the interplay between its various modules, emphasizing the use of modern web technologies and data processing techniques. We also discuss the challenges faced in integrating diverse data sources and the strategies employed to ensure a seamless, user-friendly experience. The effectiveness of the system is demonstrated through a series of use cases, highlighting its capability to adapt to user preferences and behaviors, thereby offering a highly personalized user experience.
+    </section>
+
+    <section typeof="sa:Introduction">
+        <h2 style="color:rgb(126, 31, 126)">2. Introduction</h2>
+        The advent of big data and advanced analytics has paved the way for the development of systems capable of providing highly personalized content to users. Our recommendation system is designed to harness these capabilities, offering a user-centric experience by analyzing a plethora of data sources. This report outlines the foundational data structures, the nature of external data sources, and the compliance with linked data principles.
+    </section>
+
+    <section typeof="sa:Structure">
+        <h2 style="color:rgb(126, 31, 126)">3. Structure</h2>
+        In this chapter, we delve into the intricate structure of the web-based recommendation system, detailing the architectural components and their interrelations. This system's architecture is meticulously designed to support its core functionality of generating personalized recommendations based on a knowledge graph, ensuring both scalability and robustness.
+        <ol>
+            <br />
+            <br>
+            <li property="schema: roleModularArchitecture">
+                <u>Modular architecture</u>
+                <br />
+                <br>
+                The system is constructed using a modular approach, dividing it into several key components, each responsible for a distinct aspect of the system's functionality. This modular structure not only simplifies development and maintenance but also enhances system scalability and performance.
+                <br />
+                <br>
+                <ul property="schema: roleFrontendModule">
+                    <u>Frontend Module</u>
+                    <br />
+                    <br>
+                    Technology Used: React.js
+                    <br />
+                    <br>
+                    Function: The frontend serves as the user interface of the system. It is designed to be intuitive, responsive, and accessible, providing users with an interactive platform to input their preferences, view recommendations, and provide feedback.
+                </ul>
+                <br />
+                <br>
+                <ul property="schema: roleBackendModule">
+                    <u>Backend Module</u>
+                    <br />
+                    <br>
+                    Technology Used: Node.js
+                    <br />
+                    <br>
+                    Function: This module acts as the system's backbone, handling business logic, data processing, API management, and communication between the frontend and other system components.
+                </ul>
+                <br />
+                <br>
+                <ul property="schema: roleDatabaseModule">
+                    <u>Database Module</u>
+                    <br />
+                    <br>
+                    Technology Used: MongoDB
+                    <br />
+                    <br>
+                    Function: MongoDB stores structured data such as user profiles, preferences, and historical data. It is optimized for high-performance data retrieval and storage.
+                </ul>
+                <br />
+                <br>
+                <ul property="schema: roleKnowledgeGraphStore">
+                    <u> Knowledge Graph Store</u>
+                    <br />
+                    <br>
+                    Technology Used: Graph Database
+                    <br />
+                    <br>
+                    Function: The knowledge graph store manages the RDF data, allowing for complex queries and manipulations vital for generating personalized recommendations.
+                </ul>
+                <br />
+                <br>
+                <ul property="schema: roleSPARQLEndpoint">
+                    <u> SPARQL Endpoint</u>
+                    <br />
+                    <br>
+                    Function: This interface enables the execution of SPARQL queries against the knowledge graph, facilitating advanced data retrieval essential for the recommendation logic
+                </ul>
+            </li>
+            <br>
+            <br />
+            <br>
+            <li property="schema: roleDataFlow">
+                <u>Data Flow </u>
+                <br />
+                <br>
+                The data flow within the system is streamlined to ensure efficiency and accuracy. User data is ingested from social media platforms and processed into a structured format. This data is then used to populate the knowledge graph, where it is stored and managed. The backend module fetches and processes this data upon user queries, and the results are displayed on the frontend.
+            </li>
+            <br>
+            <br />
+            <br>
+            <li property="schema: roleIntegrationandInteraction">
+                <u>Integration and Interaction</u>
+                <br> <br>
+                The integration between different modules is crucial for the system's functionality. The backend serves as the intermediary, facilitating data exchange between the frontend, database, and knowledge graph store. This interaction is managed through well-defined APIs and data protocols, ensuring smooth and secure data transmission.
+            </li>
+            <br>
+            <br />
+            <br>
+            <li property="schema: roleScalabilityandPerformanceOptimization">
+                <u>Scalability and Performance Optimization</u>
+                <br> <br>
+                The system is designed with scalability in mind, allowing each module to be scaled independently based on demand. Performance optimization techniques such as caching, load balancing, and efficient query processing are implemented to ensure the system remains responsive and efficient, even under high loads.
+            </li>
+            <br>
+            <br />
+            <br>
+            <li property="schema: roleSecurityArchitecture">
+                <u>Security Architecture</u>
+                <br> <br>
+                Security is a paramount concern in the system’s architecture. It incorporates robust authentication mechanisms, data encryption, secure API endpoints, and compliance with data privacy standards to protect user data and system integrity.
+            </li>
+            <br />
+            <br>
+        </ol>
+    </section>
+
+    <section typeof="sa:Functionality">
+        <h2 style="color:rgb(126, 31, 126)">4. Functionality</h2>
+        <ol>
+            <li>Frontend Module
+                <br> <br>
+                Technology: React.js
+                <br>
+                Functionality:
+                <ul>
+                    <li>User Interface: Presents a clean and interactive interface for users to input preferences, view recommendations, and provide feedback.</li>
+                    <li>Data Presentation: Utilizes dynamic components to display personalized recommendations and user profiles.</li>
+                    <li>User Interaction: Handles user inputs, including preferences and feedback, and communicates these to the backend for processing.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Backend Module
+                <br> <br>
+                Technology: Node.js
+                <br>
+                Functionality:
+                <ul>
+                    <li>API Management: Manages APIs for data exchange between the frontend, database, and knowledge graph.</li>
+                    <li>Data Processing: Processes user data and preferences, transforming them into a format suitable for the recommendation engine.</li>
+                    <li>Authentication and Security: Implements secure user authentication and data protection protocols.
+                    </li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Database Module
+                <br> <br>
+                Technology: MongoDB
+                <br>
+                Functionality:
+                <ul>
+                    <li>Data Storage: Stores and manages structured data like user profiles, preferences, and system logs.</li>
+                    <li>Query Handling: Efficiently handles queries for data retrieval and updates, ensuring quick response times.</li>
+                    <li>Data Integrity and Security: Maintains data integrity and ensures secure data storage and access.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Knowledge Graph Store
+                <br> <br>
+                Technology: Graph Database
+                <br>
+                Functionality:
+                <ul>
+                    <li>RDF Data Management: Stores and manages the RDF data constituting the knowledge graph.</li>
+                    <li>Graph Queries: Facilitates complex graph queries essential for generating personalized recommendations.</li>
+                    <li>Data Relationships: Efficiently handles the relationships within the knowledge graph, crucial for accurate recommendation logic.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>SPARQL Endpoint
+                <br> <br>
+                Functionality:
+                <ul>
+                    <li>Query Execution: Executes SPARQL queries against the knowledge graph.</li>
+                    <li>Data Retrieval: Retrieves complex data sets from the knowledge graph, as required by the recommendation engine.</li>
+                    <li>Integration: Seamlessly integrates with the backend to provide necessary data for recommendation processing.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Recommendation Engine
+                <br> <br>
+                Functionality:
+                <ul>
+                    <li>Personalized Recommendations: Analyzes user data and the knowledge graph to generate personalized recommendations.</li>
+                    <li>Machine Learning Algorithms: Utilizes machine learning algorithms to refine recommendations based on user feedback and interactions.</li>
+                    <li>Adaptive Learning: Continuously learns and adapts to user preferences, enhancing the accuracy and relevance of recommendations.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Feedback and Learning Module
+                <br> <br>
+                Functionality:
+                <ul>
+                    <li>Feedback Processing: Collects and processes user feedback on recommendations.</li>
+                    <li>Learning Mechanism: Adjusts the recommendation algorithms based on feedback, ensuring the system evolves with user preferences.</li>
+                    <li>User Engagement Analysis: Analyzes user interactions and feedback to gain insights into user behavior and preferences.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+
+
+    <section typeof="sa:Structure">
+        <h2 style="color:rgb(126, 31, 126)">5. Internal Data Structures and Models</h2>
+        <ol>
+            <li>User Profiles
+                <br>
+                <ul>
+                    <li>Structure: JSON documents with fields for user demographics, preferences, and interaction history.</li>
+                    <li>Model: MongoDB schemas defining user attributes such as name, age, location, interests, and activity logs.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Knowledge Graph
+                <br>
+                <ul>
+                    <li>Structure: RDF triples representing semantic relationships among entities.</li>
+                    <li>Model: Graph database structures that facilitate complex queries and relationships, essential for recommendation logic.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Recommendation Data
+                <br>
+                <ul>
+                    <li>Structure: Aggregated and processed data used for generating recommendations.</li>
+                    <li>Model: Custom data models in Node.js, integrating user profile data and knowledge graph insights.</li>
+                </ul>
+            </li>
+            <br> <br>
+        </ol>
+    </section>
+
+    <section typeof="sa:Structure">
+        <h2 style="color:rgb(126, 31, 126)">6. External Data Sources</h2>
+        <ol>
+            <li>Social Media APIs
+                <br>
+                <ul>
+                    <li>Sources: Facebook, Twitter, LinkedIn, etc.</li>
+                    <li>Data Utilization: Fetch user-generated content, preferences, and social graphs to enrich user profiles and the knowledge graph.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Public Web Services
+                <br>
+                <ul>
+                    <li>Sources: Open data portals, content aggregators.</li>
+                    <li>Data Utilization: Supplement user data with broader context and additional content for comprehensive profiling.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+
+    <section typeof="sa:Structure">
+        <h2 style="color:rgb(126, 31, 126)">7. Data Integration and Processing</h2>
+        <ol>
+            <li>Data Ingestion
+                <br>
+                <ul>
+                    <li>Methodology: Automated scripts and API clients in Node.js for data extraction from external sources..</li>
+                    <li>Challenges: Ensuring data consistency and integrity during ingestion and transformation.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Data Transformation
+                <br>
+                <ul>
+                    <li>Process: Converting raw data into structured formats suitable for MongoDB and RDF triples for the knowledge graph.</li>
+                    <li>Tools: Data processing libraries in Node.js, RDF transformation utilities.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+
+    <section typeof="sa:Structure">
+        <h2 style="color:rgb(126, 31, 126)">8. Adherence to Linked Data Principles</h2>
+        <ol>
+            <li>URI Assignment
+                <br>
+                <ul>
+                    <li>Implementation: Assigning unique URIs to entities within the knowledge graph, facilitating global identification.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>HTTP URI Usage
+                <br>
+                <ul>
+                    <li>Implementation: Ensuring that URIs are dereferenceable over HTTP, allowing access to information about the entity.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Standard Data Formats
+                <br>
+                <ul>
+                    <li>Implementation: Utilizing RDF and SPARQL for data representation and querying, ensuring standardization and interoperability.</li>
+                </ul>
+            </li>
+            <br> <br>
+            <li>Inclusion of Links to External Data
+                <br>
+                <ul>
+                    <li>Implementation: Embedding links within the knowledge graph to other RDF datasets, enriching the context and depth of information.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+
+     
+    <section typeof="sa:ReferencesList">
+        <h2 style="color:rgb(126, 31, 126)"> References</h2>
+        <ul>
+            <li typeof="sa:listTW" property="schema:TW">
+                <span property="schema:nameReferences">Sore</span>
+                </span>
+                <ul>
+                    <li property="schema:linkReferences" typeof="schema:References">
+                        <a href="https://profs.info.uaic.ro/~busaco/teach/courses/wade/web-projects.html"
+                            property="schema:link.Net">WADe projects</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</body>
+
+</html>
