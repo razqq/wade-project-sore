@@ -15,7 +15,7 @@ week 5,6,7:
 week 8:
 - create [c4 diagram](https://docs.google.com/document/d/1qIsON8y7oZpKrMkgXSP5CNOAQ-3BejJyP-A1m7TYwiA/edit#heading=h.htqjgmdct2vc)
 - create [openAPI specification](https://docs.google.com/document/d/1qIsON8y7oZpKrMkgXSP5CNOAQ-3BejJyP-A1m7TYwiA/edit#heading=h.7fu2rv31llx7)
-- create [scholarly html technical report](#TODOADDLINK)
+- create [scholarly html technical report](https://github.com/razqq/wade-project-sore/blob/main/docs/Scholarly.html)
 
 
 ## Status
