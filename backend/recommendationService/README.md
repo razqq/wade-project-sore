@@ -1,0 +1,1 @@
+This service is used to interogate Blazegraph in order to get informations about user and recommandations.

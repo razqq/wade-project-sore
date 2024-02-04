@@ -1,0 +1,314 @@
+openapi: 3.0.0
+info:
+  title: User Profile API
+  version: "1.0"
+  description: API for managing user profiles and retrieving similar artists for a user profile
+servers:
+  - url: http://127.0.0.1:5000
+    description: Local server
+paths:
+  /query/user:
+    get:
+      summary: Retrieve user profile
+      description: Returns user profile information based on the given userId.
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          description: Unique identifier for the user
+          schema:
+            type: string
+        - name: pretty
+          in: query
+          required: false
+          description: Pretty print the response if set to 1
+          schema:
+            type: integer
+            enum: [0, 1]
+            default: 0
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '400':
+          description: Bad request (missing or invalid parameters)
+        '404':
+          description: User not found
+    /query/user/similar_artists:
+    get:
+      summary: Retrieve similar artists for a user
+      description: Returns a list of similar artists based on the given userId.
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          description: Unique identifier for the user
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Limit the number of results returned
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: List of similar artists retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Artist'
+        '400':
+          description: Bad request (missing or invalid parameters)
+        '404':
+          description: User not found
+  /query/user/similar_artists:
+    get:
+      summary: Retrieve similar artists for a user
+      description: Returns a list of similar artists based on the given userId.
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          description: Unique identifier for the user
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Limit the number of results returned
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: List of similar artists retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Artist'
+        '400':
+          description: Bad request (missing or invalid parameters)
+        '404':
+          description: User not found
+  /query/user/friends_liked:
+    get:
+      summary: Retrieve artists liked by a user's friends
+      description: Returns a list of artists liked by friends of the given user, including the friend's name and the reason for the recommendation.
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          description: Unique identifier for the user
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Limit the number of results returned
+          schema:
+            type: integer
+            default: 20
+        - name: skip
+          in: query
+          required: false
+          description: Number of results to skip for pagination
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of artists liked by friends retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FriendLikedArtist'
+        '400':
+          description: Bad request (missing or invalid parameters)
+        '404':
+          description: User not found
+  /query/user/random_artists:
+    get:
+      summary: Retrieve random artists for a user
+      description: Returns a random list of artists for the given user, limited by the specified count.
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          description: Unique identifier for the user
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Limit the number of results returned
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Random list of artists retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Artist'
+        '400':
+          description: Bad request (missing or invalid parameters)
+        '404':
+          description: User not found
+  /query/user/likes:
+    post:
+      summary: Like an artist
+      description: Allows a user to like an artist, given the userId and artistId.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLikeArtistRequest'
+      responses:
+        '200':
+          description: Artist liked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Artist liked successfully"
+        '400':
+          description: Bad request (missing or invalid parameters, or user already likes/dislikes the artist)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: User or artist not found
+  /query/user/delete_relationship:
+    delete:
+      summary: Delete a user's relationship with an artist
+      description: Allows a user to delete their relationship (like or dislike) with an artist, given the userId and artistId.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserArtistRelationshipRequest'
+      responses:
+        '200':
+          description: Relationship deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Relationship deleted successfully"
+        '400':
+          description: Bad request (missing or invalid parameters)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: User or artist not found
+
+
+components:
+  schemas:
+    UserProfile:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        gender:
+          type: string
+        name:
+          type: string
+        userId:
+          type: string
+          format: uuid
+    Artist:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    FriendLikedArtist:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        reason:
+          type: string
+          description: Reason why the artist is recommended (based on common likes)
+        recommended_by:
+          type: string
+          description: Name of the friend who recommended the 
+    UserLikeArtistRequest:
+      type: object
+      required:
+        - userId
+        - artistId
+      properties:
+        userId:
+          type: string
+          format: uuid
+          description: Unique identifier for the user
+        artistId:
+          type: string
+          format: uuid
+          description: Unique identifier for the artist
+    UserArtistRelationshipRequest:
+      type: object
+      required:
+        - userId
+        - artistId
+      properties:
+        userId:
+          type: string
+          format: uuid
+          description: Unique identifier for the user
+        artistId:
+          type: string
+          format: uuid
+          description: Unique identifier for the artist
+          
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing the issue

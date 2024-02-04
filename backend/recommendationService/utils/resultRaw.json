@@ -1,0 +1,195 @@
+{
+    "head": {
+        "vars": [
+            "user",
+            "property",
+            "value"
+        ]
+    },
+    "results": {
+        "bindings": [
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/email"
+                },
+                "value": {
+                    "type": "literal",
+                    "value": "iusti.iustina83@gmail.com"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/gender"
+                },
+                "value": {
+                    "type": "literal",
+                    "value": "female"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/name"
+                },
+                "value": {
+                    "type": "literal",
+                    "value": "Iulia Iustina"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/userId"
+                },
+                "value": {
+                    "type": "literal",
+                    "value": "07174a34-e27e-4b98-9ddf-c03576582c0e"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/relationship/DISLIKES"
+                },
+                "value": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/8192"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/relationship/DISLIKES"
+                },
+                "value": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/8535"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/relationship/HAS_HOMETOWN"
+                },
+                "value": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/4703"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/relationship/LIKES"
+                },
+                "value": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1403"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/relationship/LIKES"
+                },
+                "value": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/2600"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/relationship/LIKES"
+                },
+                "value": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/6747"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/relationship/LIKES"
+                },
+                "value": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1933"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/relationship/LOCATED_IN"
+                },
+                "value": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/4828"
+                }
+            },
+            {
+                "user": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/1026"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/relationship/WORKS_AS"
+                },
+                "value": {
+                    "type": "uri",
+                    "value": "http://example.com/resource/node/50"
+                }
+            }
+        ]
+    }
+}

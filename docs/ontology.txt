@@ -1,0 +1,73 @@
+@prefix ex: <http://example.com/resource#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:User a owl:Class .
+ex:Town a owl:Class .
+ex:Job a owl:Class .
+ex:Artist a owl:Class .
+ex:Song a owl:Class .
+ex:Album a owl:Class .
+ex:Genre a owl:Class .
+
+# Object properties
+ex:HAS_HOMETOWN a owl:ObjectProperty ;
+    rdfs:domain ex:User ;
+    rdfs:range ex:Town .
+
+ex:LOCATED_IN a owl:ObjectProperty ;
+    rdfs:domain ex:User ;
+    rdfs:range ex:Town .
+
+ex:WORKS_AS a owl:ObjectProperty ;
+    rdfs:domain ex:User ;
+    rdfs:range ex:Job .
+
+ex:LIKES a owl:ObjectProperty ;
+    rdfs:domain ex:User ;
+    rdfs:range ex:Artist .
+
+ex:DISLIKES a owl:ObjectProperty ;
+    rdfs:domain ex:User ;
+    rdfs:range ex:Artist .
+
+ex:SIMILAR_TO a owl:ObjectProperty ;
+    rdfs:domain ex:Artist ;
+    rdfs:range ex:Artist .
+
+ex:OWNS a owl:ObjectProperty ;
+    rdfs:domain ex:Artist ;
+    rdfs:range ex:Song .
+
+ex:CREATED a owl:ObjectProperty ;
+    rdfs:domain ex:Artist ;
+    rdfs:range ex:Album .
+
+ex:IN a owl:ObjectProperty ;
+    rdfs:domain ex:Song ;
+    rdfs:range ex:Album .
+
+ex:HAS_GENRE a owl:ObjectProperty ;
+    rdfs:domain ex:Song ;
+    rdfs:range ex:Genre .
+
+
+# Datatype properties
+ex:userId a owl:DatatypeProperty ;
+    rdfs:domain ex:User ;
+    rdfs:range xsd:string .
+
+ex:email a owl:DatatypeProperty ;
+    rdfs:domain ex:User ;
+    rdfs:range xsd:string .
+
+ex:gender a owl:DatatypeProperty ;
+    rdfs:domain ex:User ;
+    rdfs:range xsd:string .
+
+ex:name a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+ex:created a owl:DatatypeProperty ;
+    rdfs:range xsd:integer .

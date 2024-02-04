@@ -1,0 +1,317 @@
+PREFIX ex: <http://example.com/resource/>
+
+SELECT ?subject ?property ?value
+WHERE {
+  ?subject ex:artist_id "ARD7TVE1187B99BFB1" ;
+          ?property ?value .
+}
+
+-------------------------------------------------------------------------------------
+PREFIX ex: <http://example.com/resource/>
+
+SELECT ?subject ?property ?value
+WHERE {
+  ?subject ex:userId "07174a34-e27e-4b98-9ddf-c03576582c0e" ;
+        ?property ?value .
+}
+
+
+-------------------------------------------------------------------------------------
+PREFIX ex: <http://example.com/resource/>
+
+INSERT DATA {
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e a ex:User ;
+    ex:userId "07174a34-e27e-4b98-9ddf-c03576582c0e" ;
+    ex:email "iusti.iustina83@gmail.com" ;
+    ex:name "Iulia Iustina" ;
+    ex:gender "female" .
+
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LOCATED_IN ex:Town_Iasi_Romania .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:HAS_HOMETOWN ex:Town_Galati .
+
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LIKES ex:Artist_50Cent .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LIKES ex:Artist_Eminem .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LIKES ex:Artist_SamyIrssak .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LIKES ex:Artist_MongoliaLive .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LIKES ex:Artist_JrockRadio .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LIKES ex:Artist_WRS .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LIKES ex:Artist_RubyRose .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LIKES ex:Artist_AnnaBlue .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LIKES ex:Artist_NathanGrisdale .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LIKES ex:Artist_OneDirection .
+
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:LOCATED_IN ex:Town_Iasi_Romania .
+  ex:User_07174a34_e27e_4b98_9ddf_c03576582c0e ex:HAS_HOMETOWN ex:Town_Galati .
+}
+
+
+
+----------  get a list of  similar artists (70% from limit)
+PREFIX ex: <http://example.com/resource/>
+PREFIX rel: <http://example.com/resource/relationship/>
+
+SELECT DISTINCT ?bArtistId ?bName
+WHERE {
+  # Establish the user and the liked artists
+  ?user ex:userId "07174a34-e27e-4b98-9ddf-c03576582c0e" .
+  ?user rel:LIKES ?a .
+  ?a ex:name ?aName .
+  
+  # Find other users who like the same artists
+  ?otherUsers rel:LIKES ?a .
+  
+  # Find similar artists to those the user likes
+  ?a rel:SIMILAR_TO ?b .
+  ?b ex:artist_id ?bArtistId .
+  ?b ex:name ?bName .
+  
+  # Ensure the user does not like or dislike the similar artists
+  FILTER NOT EXISTS { ?user rel:LIKES ?b }
+  FILTER NOT EXISTS { ?user rel:DISLIKES ?b }
+
+  # Ensure other users do not dislike the similar artists
+  FILTER NOT EXISTS { ?otherUsers rel:DISLIKES ?b }
+}
+ORDER BY ?bName
+
+
+
+
+---------     // get a list of artists that other Users :LIKES same Artist 
+PREFIX ex: <http://example.com/resource/>
+PREFIX rel: <http://example.com/resource/relationship/>
+
+SELECT (GROUP_CONCAT(DISTINCT ?aName; separator=", ") AS ?reason) (SAMPLE(?bArtistId) AS ?id) (SAMPLE(?bName) AS ?name) (SAMPLE(?fName) AS ?recommended_by)
+WHERE {
+  # Establish the user and the liked artists
+  ?u ex:userId "07174a34-e27e-4b98-9ddf-c03576582c0e" .
+  ?u rel:LIKES ?a .
+  ?a ex:name ?aName .
+  
+  # Find other users who like the same artists
+  ?f rel:LIKES ?a .
+  ?f ex:name ?fName .
+  
+  # Find artists liked by these other users
+  ?f rel:LIKES ?b .
+  ?b ex:artist_id ?bArtistId .
+  ?b ex:name ?bName .
+  
+  # Ensure the user does not like or dislike the artist, and the artist is not similar to those already liked
+  FILTER NOT EXISTS { ?u rel:LIKES ?b }
+  FILTER NOT EXISTS { ?u rel:DISLIKES ?b }
+  FILTER NOT EXISTS { ?a rel:SIMILAR_TO ?b }
+}
+GROUP BY ?bArtistId
+ORDER BY ?bName
+OFFSET 0
+LIMIT 10
+
+
+-----------  get a list of artists that other User :HAS_HOMETOWN / :HAS_LOCATION as the current User 
+PREFIX ex: <http://example.com/resource/>
+PREFIX rel: <http://example.com/resource/relationship/>
+
+SELECT (SAMPLE(?bArtistId) AS ?id) (SAMPLE(?bName) AS ?name) 
+       (SAMPLE(?lName) AS ?locationName) (SAMPLE(?fName) AS ?recommended_by)
+WHERE {
+  # Establish the user and the liked artists
+  ?u ex:userId "07174a34-e27e-4b98-9ddf-c03576582c0e" .
+  ?u rel:LIKES ?a .
+  
+  # Establish the location or hometown of the user
+  {
+    ?u rel:LOCATED_IN ?l .
+  } UNION {
+    ?u rel:HAS_HOMETOWN ?l .
+  }
+  ?l ex:name ?lName .
+  
+  # Find other users located in the same town or with the same hometown
+  {
+    ?f rel:LOCATED_IN ?l .
+  } UNION {
+    ?f rel:HAS_HOMETOWN ?l .
+  }
+  ?f ex:name ?fName .
+  
+  # Find artists liked by these other users
+  ?f rel:LIKES ?b .
+  ?b ex:artist_id ?bArtistId .
+  ?b ex:name ?bName .
+  
+  # Ensure the user does not dislike the artist
+  FILTER NOT EXISTS { ?u rel:DISLIKES ?b }
+  
+  # Ensure other users do not like the same artists liked by the user
+  FILTER NOT EXISTS {
+    ?u rel:LIKES ?commonArtist .
+    ?f rel:LIKES ?commonArtist .
+  }
+}
+GROUP BY ?bArtistId
+ORDER BY ?bName
+OFFSET 0
+LIMIT 10
+
+
+
+--------------- //get a list of artists that other User :WORKS_AS as the current User 
+PREFIX ex: <http://example.com/resource/>
+PREFIX rel: <http://example.com/resource/relationship/>
+
+SELECT (SAMPLE(?bArtistId) AS ?id) (SAMPLE(?bName) AS ?name) 
+       (SAMPLE(?jName) AS ?jobName) (SAMPLE(?fName) AS ?recommended_by)
+WHERE {
+  # Establish the user and the liked artists
+  ?u ex:userId "07174a34-e27e-4b98-9ddf-c03576582c0e" .
+  ?u rel:LIKES ?a .
+  
+  # Establish the user's job
+  ?u rel:WORKS_AS ?j .
+  ?j ex:name ?jName .
+  
+  # Find other users with the same job
+  ?f rel:WORKS_AS ?j .
+  ?f ex:name ?fName .
+  
+  # Find artists liked by these other users, which the original user doesn't dislike
+  ?f rel:LIKES ?b .
+  ?b ex:artist_id ?bArtistId .
+  ?b ex:name ?bName .
+  
+  # Ensure the user does not dislike the artist
+  FILTER NOT EXISTS { ?u rel:DISLIKES ?b }
+  
+  # Ensure other users do not like the same artists liked by the user
+  FILTER NOT EXISTS {
+    ?u rel:LIKES ?commonArtist .
+    ?f rel:LIKES ?commonArtist .
+  }
+}
+GROUP BY ?bArtistId
+ORDER BY ?bName
+OFFSET 0
+LIMIT 10
+
+
+
+-------- get a list of random artists
+PREFIX ex: <http://example.com/resource/>
+PREFIX rel: <http://example.com/resource/relationship/>
+
+SELECT DISTINCT ?bArtistId ?bName
+WHERE {
+  # Establish the user and the artists they like or dislike
+  ?u ex:userId "07174a34-e27e-4b98-9ddf-c03576582c0e" .
+  {
+    ?u rel:LIKES ?a .
+  } UNION {
+    ?u rel:DISLIKES ?a .
+  }
+  
+  # Find the user's location or hometown and other users with the same
+  {
+    ?u rel:LOCATED_IN ?l .
+  } UNION {
+    ?u rel:HAS_HOMETOWN ?l .
+  }
+  {
+    ?otherUsers rel:LOCATED_IN ?l .
+  } UNION {
+    ?otherUsers rel:HAS_HOMETOWN ?l .
+  }
+
+  # Find artists liked or disliked by these other users
+  {
+    ?otherUsers rel:LIKES ?otherLikedDisliked .
+  } UNION {
+    ?otherUsers rel:DISLIKES ?otherLikedDisliked .
+  }
+  
+  # Find artists similar to those liked or disliked by the user
+  ?a rel:SIMILAR_TO ?similar .
+  
+  # Identify artists that are not liked or disliked by the user and are not similar or liked/disliked by others
+  ?b ex:artist_id ?bArtistId .
+  ?b ex:name ?bName .
+  FILTER NOT EXISTS { ?u rel:LIKES|rel:DISLIKES ?b }
+  FILTER NOT EXISTS { ?u rel:LIKES|rel:DISLIKES ?similar }
+  FILTER NOT EXISTS { ?otherUsers rel:LIKES|rel:DISLIKES ?b }
+  FILTER NOT EXISTS { ?a rel:SIMILAR_TO ?b }
+}
+LIMIT 10
+
+
+
+
+
+---------- add a new relationship between user and artist 
+PREFIX ex: <http://example.com/resource/>
+PREFIX rel: <http://example.com/resource/relationship/>
+
+INSERT {
+    ?user rel:LIKES ?artist .
+    ?relationshipNode ex:created ?timestamp .
+}
+WHERE {
+    # Assign the IRIs for user and artist directly
+    BIND (IRI("http://example.com/resource/node/1026") AS ?user)
+    BIND (IRI("http://example.com/resource/node/2321") AS ?artist)  
+    
+    # Generate a unique IRI for the relationship node (if you want to store the timestamp or other data)
+    BIND (IRI(CONCAT("http://example.com/resource/relationship/", STRUUID())) AS ?relationshipNode)
+    
+    # Get the current timestamp (you might need to handle this in your application logic)
+    BIND (NOW() AS ?timestamp)
+    
+    # Check conditions
+    FILTER NOT EXISTS { ?user rel:DISLIKES ?artist }
+    FILTER NOT EXISTS { ?user rel:LIKES ?artist }
+    
+    # Make sure the user and artist exist in the graph
+    # This assumes that the user and artist IRIs are sufficient to assert their existence
+}
+
+
+--------history 
+PREFIX ex: <http://example.com/resource/>
+PREFIX rel: <http://example.com/resource/relationship/>
+
+SELECT DISTINCT ?user ?relationshipType ?artist
+WHERE {
+    BIND (IRI("http://example.com/resource/node/1026") AS ?user)
+
+    ?user ?relationshipType ?artist .
+    ?relationshipNode ex:created ?timestamp .
+
+    FILTER EXISTS { ?relationshipNode ex:created ?timestamp }
+    
+	  FILTER(?relationshipType = rel:LIKES || ?relationshipType = rel:DISLIKES)
+}
+ORDER BY DESC(?timestamp)
+LIMIT 10
+
+
+
+--------- delete relationship
+PREFIX ex: <http://example.com/resource/>
+PREFIX rel: <http://example.com/resource/relationship/>
+
+DELETE {
+    ?user rel:LIKES ?artist .
+    ?user rel:DISLIKES ?artist .
+}
+WHERE {
+    BIND (IRI("http://example.com/resource/node/1026") AS ?user)
+    BIND (IRI("http://example.com/resource/node/8192") AS ?artist)
+    
+    # You can use UNION to match either relationship if they exist
+    {
+        ?user rel:LIKES ?artist .
+    }
+    UNION
+    {
+        ?user rel:DISLIKES ?artist .
+    }
+}
