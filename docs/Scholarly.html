@@ -213,7 +213,13 @@
                 <br> <br>
                 Functionality:
                 <ul>
-                    <li>Personalized suggestions: Uses user data and the knowledge graph to provide tailored suggestions.</li> <li>Machine Learning Algorithms: Uses machine learning algorithms to improve suggestions based on user input and interactions.</li> <li>Adaptive Learning: Continuously learns and adjusts to user preferences, improving the accuracy and relevance of suggestions.</li>
+                    <li>The system assigns suggestions to different grades based on the user's relationship with other users or artists.
+                        Grade -1: Skips artists that users in similar connections detest.
+                        Grade 1: Emphasizes artists loved by other users who share the same interests as the present user (up to 50% of the maximum).
+                        Grade 2: Chooses musicians favored by users in the same hometown or place as the present user (25% of the maximum).
+                        Grade 3: Takes into account artists favored by users whose hometown is the present user's location, or vice versa (15% of the maximum).
+                        Grade 4: Includes artists who are comparable to those favored by the user (70%), as well as random artists (30%) if no previous grades' recommendations are available.
+                   </li>
                 </ul>
             </li>
             <br> <br>
@@ -221,7 +227,10 @@
                 <br> <br>
                 Functionality:
                 <ul>
-                    <li>input Processing: Gathers and processes user input on suggestions.</li> <li>The Learning Mechanism adjusts the recommendation algorithms depending on input, ensuring that the system evolves in accordance with user preferences.</li> <li>User Engagement Analysis: Examines user interactions and feedback to acquire insight into their behavior and preferences.</li>
+                    <li> The algorithm promotes relevance based on user choices and social connections (for example, friends' likes, location/job similarities).
+                        Random recommendations help to strike a balance between relevance and diversity.
+                        The use of grades enables a flexible and dynamic recommendation technique, with proportions adjusted based on user input.
+                        The algorithm is sophisticated and may necessitate large computer resources, depending on the size of the dataset and number of users.</li>
                 </ul>
             </li>
         </ol>

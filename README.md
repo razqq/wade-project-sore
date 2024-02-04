@@ -11,7 +11,7 @@ week 5,6,7:
 week 8:
 - create [c4 - 1 diagram](https://github.com/razqq/wade-project-sore/blob/main/docs/C4-1.drawio.png)
 - create [c4 - 2 diagram](https://github.com/razqq/wade-project-sore/blob/main/docs/C4-2.drawio.png)
-- create [application diagram](https://github.com/razqq/wade-project-sore/blob/main/docs/appDiagram.png)
+- create [application diagram](https://github.com/razqq/wade-project-sore/blob/main/docs/imgs/appDiagram.png)
 - create [openAPI specification](https://github.com/razqq/wade-project-sore/blob/main/docs/openAPIs)
 - create [scholarly html technical report](https://github.com/razqq/wade-project-sore/blob/main/docs/Scholarly.html)
 
@@ -39,9 +39,15 @@ tags: #project, #infoiasi, #web
 
 Usefull links:
 https://developers.facebook.com/
+
 https://neo4j.com/developer/desktop-csv-import/
+
 https://github.com/flavienbwk/Neo4j-Example-Spotifylike/tree/master
+
 https://www.ldf.fi/service/rdf-grapher
+
 https://www.linkedin.com/company/soretest
+
 https://app.swaggerhub.com/
+
 https://giphy.com/pusheen
