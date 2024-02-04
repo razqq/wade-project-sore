@@ -1,0 +1,2 @@
+clientId=77u28jjl2x24fq
+clientSecret=x5iqfrI5Dv7brHrM

@@ -1,0 +1,14 @@
+//https://api.linkedin.com/v2/userinfo
+{
+    "sub": "v8feaXyY9A",
+    "email_verified": true,
+    "name": "Iulia Iustina Sârbu",
+    "locale": {
+        "country": "US",
+        "language": "en"
+    },
+    "given_name": "Iulia Iustina",
+    "family_name": "Sârbu",
+    "email": "sarbu.iustina@gmail.com",
+    "picture": "https://media.licdn.com/dms/image/C4E03AQHU7BRemxPFcQ/profile-displayphoto-shrink_100_100/0/1600632727809?e=1708560000&v=beta&t=ca-BnptFg0xnG_9IWn-6Q3Xd6P7VdqVsWR66Vd4h9uk"
+}

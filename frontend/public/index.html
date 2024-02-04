@@ -1,43 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<html>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>(so)cial (re)commender</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<head>
+    <title>Sore</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <!-- <img src="img/logo.png" alt="App Logo"> -->
+            <button class="login-btn">Login with Facebook</button>
+        </div>
+    </div>
+</body>
+<script>
+window.fbAsyncInit = function () {
+    FB.init({
+        appId: '685436550240245', // Use your actual app ID
+        xfbml: true,
+        version: 'v18.0'
+    });
+    FB.AppEvents.logPageView();
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    // This checks the user's login status on page load.
+    FB.getLoginStatus(function (response) {
+        statusChangeCallback(response);
+    });
+};
+
+(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) { return; }
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+document.addEventListener('DOMContentLoaded', function () {
+    var loginButton = document.querySelector('.login-btn');
+    
+    loginButton.addEventListener('click', function () {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                FB.api('/me', { fields: 'name,email,location,hometown,gender,music{name,created_time}' }, function (response) {
+                    // Call your API with the response
+                    fetch('http://localhost:3000/api/auth/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(response),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle success, save the token as a cookie, etc.
+                        document.cookie = "token=" + data.token;
+                        window.location.href = 'http://localhost:3001/pages/recommendations.html';
+                    })
+                    .catch((error) => {
+                        // Handle errors
+                        console.error('Error:', error);
+                    });
+                });
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        }, {scope: 'email,user_likes'}); // Add other permissions as needed
+    });
+});
+
+</script>
+
 </html>
